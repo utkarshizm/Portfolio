@@ -19,259 +19,97 @@
             --border-color: rgba(255, 255, 255, 0.08);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            cursor: none;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         html { scroll-behavior: smooth; }
-
         body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            letter-spacing: -0.01em;
+            background-color: var(--bg-color); color: var(--text-primary);
+            font-family: 'Inter', sans-serif; overflow-x: hidden; letter-spacing: -0.01em;
         }
 
         /* Custom Cursor */
-        .cursor-dot {
-            width: 6px; height: 6px;
-            background-color: var(--accent);
-            border-radius: 50%;
-            position: fixed; top: 0; left: 0;
-            pointer-events: none; z-index: 9999;
-            transition: transform 0.1s ease;
-        }
-        .cursor-outline {
-            width: 32px; height: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            position: fixed; top: 0; left: 0;
-            pointer-events: none; z-index: 9998;
-            transition: transform 0.2s ease, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
-        }
+        .cursor-dot { width: 6px; height: 6px; background-color: var(--accent); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transition: transform 0.1s ease; }
+        .cursor-outline { width: 32px; height: 32px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transition: transform 0.2s ease, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease; }
 
         /* 3D Background */
-        #bg-canvas {
-            position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%; z-index: -1;
-        }
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
         /* Navigation */
-        nav {
-            position: fixed; top: 0; width: 100%;
-            padding: 24px 50px;
-            display: flex; justify-content: space-between; align-items: center;
-            z-index: 100; backdrop-filter: blur(12px);
-            background: rgba(10, 10, 10, 0.6);
-            border-bottom: 1px solid var(--border-color);
-        }
-        .logo {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.4rem; font-weight: 700;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-        }
-        .nav-links a {
-            color: var(--text-secondary); text-decoration: none;
-            margin-left: 32px; font-weight: 400; font-size: 0.95rem;
-            transition: color 0.3s ease;
-        }
+        nav { position: fixed; top: 0; width: 100%; padding: 24px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 100; backdrop-filter: blur(12px); background: rgba(10, 10, 10, 0.6); border-bottom: 1px solid var(--border-color); }
+        .logo { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; margin-left: 32px; font-weight: 400; font-size: 0.95rem; transition: color 0.3s ease; }
         .nav-links a:hover { color: var(--text-primary); }
 
         /* Hero Section */
-        #hero {
-            min-height: 100vh;
-            display: flex; flex-direction: column; justify-content: center;
-            padding: 120px 50px 50px; position: relative;
-        }
-        .hero-text h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: 6rem; line-height: 0.95;
-            color: var(--text-primary);
-            margin-bottom: 30px;
-            letter-spacing: -0.04em;
-            font-weight: 700;
-        }
-        .hero-text p {
-            font-size: 1.15rem; color: var(--text-secondary);
-            max-width: 650px; margin-bottom: 50px; line-height: 1.7;
-            font-weight: 300;
-        }
+        #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 120px 50px 50px; position: relative; }
+        .hero-text h1 { font-family: 'Syne', sans-serif; font-size: 6rem; line-height: 0.95; color: var(--text-primary); margin-bottom: 30px; letter-spacing: -0.04em; font-weight: 700; }
+        .hero-text p { font-size: 1.15rem; color: var(--text-secondary); max-width: 650px; margin-bottom: 50px; line-height: 1.7; font-weight: 300; }
         .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
-        .btn {
-            padding: 14px 32px; border: 1px solid var(--border-color);
-            color: var(--text-primary); text-decoration: none;
-            font-weight: 500; font-size: 0.95rem; border-radius: 4px;
-            transition: all 0.3s ease;
-            background: transparent;
-        }
-        .btn:hover {
-            background: var(--text-primary);
-            color: var(--bg-color);
-            border-color: var(--text-primary);
-        }
-        .btn-primary {
-            background: var(--text-primary);
-            color: var(--bg-color);
-            border-color: var(--text-primary);
-        }
-        .btn-primary:hover {
-            background: transparent;
-            color: var(--text-primary);
-        }
+        .btn { padding: 14px 32px; border: 1px solid var(--border-color); color: var(--text-primary); text-decoration: none; font-weight: 500; font-size: 0.95rem; border-radius: 4px; transition: all 0.3s ease; background: transparent; }
+        .btn:hover { background: var(--text-primary); color: var(--bg-color); border-color: var(--text-primary); }
+        .btn-primary { background: var(--text-primary); color: var(--bg-color); border-color: var(--text-primary); }
+        .btn-primary:hover { background: transparent; color: var(--text-primary); }
 
         /* General Section Styles */
         section { padding: 100px 50px; position: relative; }
-        .section-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 2.5rem; margin-bottom: 60px;
-            color: var(--text-primary);
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .section-title::before {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 1px;
-            background: var(--text-secondary);
-        }
+        .section-title { font-family: 'Syne', sans-serif; font-size: 2.5rem; margin-bottom: 60px; color: var(--text-primary); font-weight: 600; letter-spacing: -0.02em; display: flex; align-items: center; gap: 20px; }
+        .section-title::before { content: ''; display: block; width: 40px; height: 1px; background: var(--text-secondary); }
 
         /* About & Education */
-        .about-grid {
-            display: grid; grid-template-columns: 1.2fr 1fr;
-            gap: 60px; align-items: start;
-        }
-        .about-text p {
-            font-size: 1.1rem; color: var(--text-secondary);
-            line-height: 1.8; margin-bottom: 24px; font-weight: 300;
-        }
-        .education-card {
-            background: var(--card-bg); padding: 36px;
-            border-radius: 8px; border: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-        }
+        .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: start; }
+        .about-text p { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px; font-weight: 300; }
+        .education-card { background: var(--card-bg); padding: 36px; border-radius: 8px; border: 1px solid var(--border-color); backdrop-filter: blur(10px); }
         .education-card h3 { font-family: 'Syne', sans-serif; color: var(--text-primary); margin-bottom: 12px; font-size: 1.3rem; font-weight: 600; }
         .education-card .date { color: var(--text-secondary); margin-bottom: 20px; font-weight: 400; font-size: 0.9rem; }
         .education-card p { color: var(--text-secondary); margin-bottom: 8px; font-size: 0.95rem; }
 
         /* Skills Grid */
-                /* Skills Grid */
-       /* Skills Grid */
-        /* Skills Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 16px;
-        }
-        .skill-card {
-            background: var(--card-bg); padding: 32px;
-            border-radius: 8px; border: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            transition: border-color 0.3s ease, background 0.3s ease;
-        }
-        .skill-card:hover {
-            border-color: rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.05);
-        }
-        .skill-card h3 {
-            color: var(--text-primary); margin-bottom: 20px;
-            font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 500;
-            text-transform: uppercase; letter-spacing: 0.05em;
-        }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+        .skill-card { background: var(--card-bg); padding: 32px; border-radius: 8px; border: 1px solid var(--border-color); backdrop-filter: blur(10px); transition: border-color 0.3s ease, background 0.3s ease; display: flex; flex-direction: column; justify-content: center; height: 100%; }
+        .skill-card:hover { border-color: rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.05); }
+        .skill-card h3 { color: var(--text-primary); margin-bottom: 20px; font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
         .tags { display: flex; flex-wrap: wrap; gap: 8px; }
-        .tag {
-            background: rgba(255,255,255,0.05); padding: 6px 14px;
-            border-radius: 4px; font-size: 0.85rem; color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-        }
+        .tag { background: rgba(255,255,255,0.05); padding: 6px 14px; border-radius: 4px; font-size: 0.85rem; color: var(--text-secondary); border: 1px solid var(--border-color); }
 
         /* Projects */
-        .projects-container {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 24px; perspective: 1000px;
-        }
-        .project-card {
-            background: var(--card-bg); border-radius: 12px; padding: 40px;
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(10px); transform-style: preserve-3d;
-            transition: transform 0.1s ease-out, border-color 0.3s ease;
-            position: relative;
-        }
-        .project-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-        }
-        .project-card h3 {
-            font-family: 'Syne', sans-serif; font-size: 1.5rem;
-            margin-bottom: 12px; color: var(--text-primary);
-            transform: translateZ(30px); font-weight: 600;
-        }
-        .project-card .proj-meta {
-            color: var(--text-secondary); font-size: 0.85rem;
-            margin-bottom: 20px; display: block; transform: translateZ(20px); 
-            text-transform: uppercase; letter-spacing: 0.05em;
-        }
-        .project-card p {
-            color: var(--text-secondary); margin-bottom: 24px;
-            line-height: 1.7; transform: translateZ(20px); font-size: 0.95rem; font-weight: 300;
-        }
-        .project-link {
-            color: var(--text-primary); text-decoration: none; font-weight: 500; font-size: 0.9rem;
-            display: inline-block; border-bottom: 1px solid var(--text-primary);
-            transform: translateZ(40px); padding-bottom: 2px;
-        }
+        .projects-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; perspective: 1000px; }
+        .project-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); backdrop-filter: blur(10px); transform-style: preserve-3d; transition: transform 0.1s ease-out, border-color 0.3s ease, box-shadow 0.3s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .project-card:hover { border-color: rgba(255, 255, 255, 0.15); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        
+        /* Extraordinary Project Image Styles */
+        .project-img-wrapper { width: 100%; height: 240px; overflow: hidden; position: relative; border-bottom: 1px solid var(--border-color); transform: translateZ(10px); }
+        .project-img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease; filter: grayscale(60%) brightness(0.7) contrast(1.1); }
+        .project-card:hover .project-img { transform: scale(1.08); filter: grayscale(0%) brightness(0.95) contrast(1.1); }
+        
+        /* Gradient overlay to blend image into the card */
+        .project-img-wrapper::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 60%; background: linear-gradient(to top, var(--bg-color), transparent); pointer-events: none; }
+
+        .project-content { padding: 32px; display: flex; flex-direction: column; flex-grow: 1; }
+        .project-card h3 { font-family: 'Syne', sans-serif; font-size: 1.5rem; margin-bottom: 12px; color: var(--text-primary); transform: translateZ(30px); font-weight: 600; }
+        .project-card .proj-meta { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 20px; display: block; transform: translateZ(20px); text-transform: uppercase; letter-spacing: 0.05em; }
+        .project-card p { color: var(--text-secondary); margin-bottom: 24px; line-height: 1.7; transform: translateZ(20px); font-size: 0.95rem; font-weight: 300; flex-grow: 1; }
+        .project-link { color: var(--text-primary); text-decoration: none; font-weight: 500; font-size: 0.9rem; display: inline-block; border-bottom: 1px solid var(--text-primary); transform: translateZ(40px); padding-bottom: 2px; align-self: flex-start; }
 
         /* Experience & Leadership Timeline */
         .timeline { border-left: 1px solid var(--border-color); padding-left: 40px; }
         .timeline-item { margin-bottom: 48px; position: relative; }
-        .timeline-item::before {
-            content: ''; width: 8px; height: 8px;
-            background: var(--text-secondary); border-radius: 50%;
-            position: absolute; left: -44px; top: 6px;
-        }
+        .timeline-item::before { content: ''; width: 8px; height: 8px; background: var(--text-secondary); border-radius: 50%; position: absolute; left: -44px; top: 6px; }
         .timeline-date { color: var(--text-secondary); font-weight: 400; margin-bottom: 6px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
         .timeline-title { font-size: 1.2rem; margin-bottom: 4px; color: var(--text-primary); font-weight: 500; }
         .timeline-company { color: var(--text-secondary); margin-bottom: 12px; font-style: italic; font-size: 0.9rem; }
         .timeline-item p { color: var(--text-secondary); line-height: 1.7; font-size: 0.95rem; font-weight: 300; }
 
         /* Certifications Grid */
-        .cert-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 16px;
-        }
-        .cert-card {
-            background: var(--card-bg); padding: 28px;
-            border-radius: 8px; border: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            display: flex; align-items: flex-start; gap: 16px;
-            transition: border-color 0.3s ease, background 0.3s ease;
-        }
+        .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+        .cert-card { background: var(--card-bg); padding: 28px; border-radius: 8px; border: 1px solid var(--border-color); backdrop-filter: blur(10px); display: flex; align-items: flex-start; gap: 16px; transition: border-color 0.3s ease, background 0.3s ease; }
         .cert-card:hover { border-color: rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.05); }
         .cert-icon { color: var(--text-secondary); font-size: 1.1rem; margin-top: 2px; }
         .cert-info h4 { font-size: 0.95rem; margin-bottom: 6px; color: var(--text-primary); font-weight: 500; }
         .cert-info p { font-size: 0.85rem; color: var(--text-secondary); }
 
         /* Footer */
-        footer {
-            text-align: center; padding: 80px 50px;
-            border-top: 1px solid var(--border-color); margin-top: 50px;
-        }
-        .footer-contact {
-            display: flex; flex-wrap: wrap; justify-content: center;
-            gap: 40px; margin-bottom: 40px;
-        }
-        .footer-item {
-            display: flex; align-items: center; gap: 12px;
-            color: var(--text-secondary); text-decoration: none;
-            transition: color 0.3s ease; font-size: 0.9rem;
-        }
+        footer { text-align: center; padding: 80px 50px; border-top: 1px solid var(--border-color); margin-top: 50px; }
+        .footer-contact { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-bottom: 40px; }
+        .footer-item { display: flex; align-items: center; gap: 12px; color: var(--text-secondary); text-decoration: none; transition: color 0.3s ease; font-size: 0.9rem; }
         .footer-item:hover { color: var(--text-primary); }
         .footer-item i { font-size: 1.1rem; color: var(--text-secondary); }
 
@@ -421,29 +259,53 @@
     <section id="projects">
         <h2 class="section-title reveal">Featured Projects</h2>
         <div class="projects-container">
+            
+            <!-- Project 1: Zomato -->
             <div class="project-card reveal">
-                <h3>Zomato Restaurant Analysis</h3>
-                <span class="proj-meta">Power BI & Python | Jun 2026</span>
-                <p>Cleaned and pre-processed 5,000+ Bangalore restaurant records using Python (Pandas) and built an interactive Power BI dashboard with DAX measures, cross-chart filtering, and geographic heat maps.</p>
-                <p>Identified high-opportunity market segment (₹463 avg cost, 3.7★ quality) in BTM Layout/HSR corridor; delivered data-backed cloud-kitchen entry strategy with cuisine gap analysis.</p>
-                <a href="https://utkrsh.lovable.app/projects/zomato" target="_blank" class="project-link">Live Demo ↗</a>
+                <div class="project-img-wrapper">
+                    <img src="https://z-cdn-media.chatglm.cn/files/5fe17f5f-46c1-4c83-85c5-a02057d212b2.png?auth_key=1884726553-f6619303565447bd95b8d114b561ccc6-0-1564fe932e09710f12c01518635795cb" alt="Zomato Bangalore Restaurants Analysis" class="project-img" referrerpolicy="no-referrer">
+                </div>
+                <div class="project-content">
+                    <h3>Zomato Restaurant Analysis</h3>
+                    <span class="proj-meta">Power BI & Python | Jun 2026</span>
+                    <p>Cleaned and pre-processed 51,717+ Bangalore restaurant records using Python (Pandas) and built an interactive Power BI dashboard with DAX measures, cross-chart filtering, and geographic heat maps. Identified high-opportunity market segment (₹555 avg cost, 3.7★ quality) across top localities.</p>
+                    <a href="https://utkrsh.lovable.app/projects/zomato" target="_blank" class="project-link">Live Demo ↗</a>
+                </div>
             </div>
+
+            <!-- Project 2: IPL -->
             <div class="project-card reveal">
-                <h3>IPL Cricket Analytics Dashboard</h3>
-                <span class="proj-meta">Python & Streamlit | Jun 2026</span>
-                <p>Engineered end-to-end analytics dashboard over 8 IPL seasons and 1,000+ matches with team, player, and season filters powering 6 interactive Plotly visualizations. Optimized using vectorized Pandas.</p>
-                <a href="https://utkrshizm-ipl-dashboard-app-bf24yl.streamlit.app" target="_blank" class="project-link">Live Demo ↗</a>
+                <div class="project-img-wrapper">
+                    <img src="https://z-cdn-media.chatglm.cn/files/da0c9050-97e0-42c4-9d70-594942567151.png?auth_key=1884726553-0a4a7d88231345faaded18a734777750-0-3e9bc90f741487fdf602d1da6a9fec42" alt="IPL Cricket Analytics Dashboard" class="project-img" referrerpolicy="no-referrer">
+                </div>
+                <div class="project-content">
+                    <h3>IPL Cricket Analytics Dashboard</h3>
+                    <span class="proj-meta">Python & Streamlit | Jun 2026</span>
+                    <p>Engineered end-to-end analytics dashboard over 16 IPL seasons, 8 teams, and 988 matches with team, player, and season filters powering interactive Plotly visualizations. Optimized using vectorized Pandas.</p>
+                    <a href="https://utkrshizm-ipl-dashboard-app-bf24yl.streamlit.app" target="_blank" class="project-link">Live Demo ↗</a>
+                </div>
             </div>
+
+            <!-- Project 3: Superstore -->
             <div class="project-card reveal">
-                <h3>Superstore Sales Dashboard</h3>
-                <span class="proj-meta">Tableau Public | Jun 2026</span>
-                <p>Designed a single-page executive dashboard on 10,000+ records — KPI cards, monthly trend, treemap, regional bars, color-coded profit analysis, and US geo map with cross-chart filtering.</p>
-                <a href="https://public.tableau.com/app/profile/utkarsh.pandey4648" target="_blank" class="project-link">Live Demo ↗</a>
+                <div class="project-img-wrapper">
+                    <img src="https://z-cdn-media.chatglm.cn/files/f87005c9-6079-4928-95b9-7276a497ed85.png?auth_key=1884726553-e67a9ce9afaf485293e15b44584dc0ad-0-2f2e711b4736f0714bcf67d8e29bb200" alt="Superstore Sales Dashboard" class="project-img" referrerpolicy="no-referrer">
+                </div>
+                <div class="project-content">
+                    <h3>Superstore Sales Dashboard</h3>
+                    <span class="proj-meta">Tableau Public | Jun 2026</span>
+                    <p>Designed a single-page executive dashboard on 10,000+ records — KPI cards, monthly trend, treemap, regional bars, color-coded profit analysis, and US geo map with cross-chart filtering.</p>
+                    <a href="https://public.tableau.com/app/profile/utkarsh.pandey4648" target="_blank" class="project-link">Live Demo ↗</a>
+                </div>
             </div>
+
+            <!-- Project 4: Anti-Crash (No Image) -->
             <div class="project-card reveal">
-                <h3>Anti-Crash & Object Detection System</h3>
-                <span class="proj-meta">Hardware & IoT | Nov 2025</span>
-                <p>Designed a parking assistance prototype using Radar and Sonar sensors for real-time obstacle detection across 3+ environments. Enabled collision avoidance capabilities to ensure vehicle safety.</p>
+                <div class="project-content">
+                    <h3 style="margin-top: 20px;">Anti-Crash & Object Detection System</h3>
+                    <span class="proj-meta">Hardware & IoT | Nov 2025</span>
+                    <p>Designed a parking assistance prototype using Radar and Sonar sensors for real-time obstacle detection across 3+ environments. Enabled collision avoidance capabilities to ensure vehicle safety.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -592,9 +454,8 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.position.setZ(30);
 
-        // Create Particles (Minimalist White/Gray)
         const particleGeometry = new THREE.BufferGeometry();
-        const particleCount = 2000; // Slightly reduced for a cleaner look
+        const particleCount = 2000; 
         const posArray = new Float32Array(particleCount * 3);
 
         for(let i = 0; i < particleCount * 3; i++) {
@@ -604,15 +465,14 @@
         particleGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
         const particleMaterial = new THREE.PointsMaterial({
             size: 0.12,
-            color: 0xffffff, // Pure white
+            color: 0xffffff, 
             transparent: true,
-            opacity: 0.3 // Very subtle
+            opacity: 0.3 
         });
 
         const particles = new THREE.Points(particleGeometry, particleMaterial);
         scene.add(particles);
 
-        // Add a secondary wireframe shape for depth (Very subtle)
         const geometry = new THREE.IcosahedronGeometry(15, 1);
         const wireframe = new THREE.WireframeGeometry(geometry);
         const line = new THREE.LineSegments(wireframe, new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.03 }));
@@ -637,12 +497,10 @@
         // --- GSAP Scroll Animations ---
         gsap.registerPlugin(ScrollTrigger);
 
-        // Hero Animation
         gsap.from('.hero-title', { duration: 1.2, y: 80, opacity: 0, ease: 'power4.out' });
         gsap.from('.hero-desc', { duration: 1.2, y: 40, opacity: 0, delay: 0.2, ease: 'power4.out' });
         gsap.from('.hero-btns', { duration: 1.2, y: 30, opacity: 0, delay: 0.4, ease: 'power4.out' });
 
-        // Reveal on Scroll
         gsap.utils.toArray('.reveal').forEach(el => {
             gsap.fromTo(el, 
                 { opacity: 0, y: 40 }, 
