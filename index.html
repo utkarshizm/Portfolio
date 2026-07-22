@@ -52,6 +52,16 @@
         body.crosshair-cursor .cursor-outline::after { width: 60px; height: 1px; left: -10px; top: 50%; transform: translateY(-50%); }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
+        /* Spinning Dashed Ring */
+        body.spinning-cursor .cursor-outline { border: 1px dashed rgba(255,255,255,0.6); animation: spin 3s linear infinite; }
+        body.spinning-cursor .cursor-dot { background-color: transparent; border: 1px solid var(--accent); width: 4px; height: 4px; }
+
+        /* Springy Lag Ring */
+        body.springy-cursor .cursor-outline { transition: none; border-color: rgba(255,255,255,0.8); }
+
+        /* Liquid Stretch Ring */
+        body.liquid-cursor .cursor-outline { transition: none; border: 1px solid rgba(255,255,255,0.6); background: rgba(255,255,255,0.02); }
+
         /* 3D Background */
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
@@ -133,7 +143,7 @@
         .settings-widget { position: fixed; bottom: 30px; right: 30px; z-index: 10001; }
         .settings-toggle { width: 48px; height: 48px; background: var(--card-bg); border: 1px solid var(--border-color); backdrop-filter: blur(12px); border-radius: 50%; color: var(--text-primary); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: transform 0.3s ease; }
         .settings-toggle:hover { transform: rotate(45deg); }
-        .settings-menu { position: absolute; bottom: 60px; right: 0; background: rgba(20, 20, 20, 0.9); border: 1px solid var(--border-color); backdrop-filter: blur(12px); padding: 20px; border-radius: 8px; display: none; flex-direction: column; gap: 10px; width: 180px; }
+        .settings-menu { position: absolute; bottom: 60px; right: 0; background: rgba(20, 20, 20, 0.9); border: 1px solid var(--border-color); backdrop-filter: blur(12px); padding: 20px; border-radius: 8px; display: none; flex-direction: column; gap: 10px; width: 180px; max-height: 400px; overflow-y: auto; }
         .settings-menu.active { display: flex; }
         .settings-menu h4 { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
         .settings-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px 12px; border-radius: 4px; font-size: 0.85rem; cursor: none; text-align: left; transition: background 0.3s ease; }
@@ -181,6 +191,9 @@
             <button class="settings-btn" data-cursor="context">Contextual Text</button>
             <button class="settings-btn" data-cursor="crosshair">Tech Crosshair</button>
             <button class="settings-btn" data-cursor="spotlight">Spotlight</button>
+            <button class="settings-btn" data-cursor="spinning">Spinning Dashed</button>
+            <button class="settings-btn" data-cursor="springy">Springy Lag</button>
+            <button class="settings-btn" data-cursor="liquid">Liquid Stretch</button>
             <button class="settings-btn" data-cursor="system">System Default</button>
         </div>
         <button class="settings-toggle" id="settingsToggle"><i class="fas fa-cog"></i></button>
@@ -478,10 +491,31 @@
         const cursorText = document.getElementById('cursorText');
         const spotlight = document.getElementById('spotlight-overlay');
         let trailElements = [];
+        let lastX = 0, lastY = 0;
 
         window.addEventListener('mousemove', (e) => {
             gsap.to(cursorDot, { duration: 0.1, x: e.clientX, y: e.clientY });
-            gsap.to(cursorOutline, { duration: 0.3, x: e.clientX, y: e.clientY });
+
+            // Springy Lag Logic
+            if (document.body.classList.contains('springy-cursor')) {
+                gsap.to(cursorOutline, { duration: 0.8, x: e.clientX, y: e.clientY, ease: 'elastic.out(1, 0.3)' });
+            } 
+            // Liquid Stretch Logic
+            else if (document.body.classList.contains('liquid-cursor')) {
+                let dx = e.clientX - lastX;
+                let dy = e.clientY - lastY;
+                let speed = Math.min(Math.sqrt(dx*dx + dy*dy), 50);
+                
+                let scaleX = 1 + speed / 30;
+                let scaleY = 1 - speed / 60;
+                let angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                
+                gsap.to(cursorOutline, { duration: 0.2, x: e.clientX, y: e.clientY, rotation: angle, scaleX: scaleX, scaleY: scaleY, ease: 'power2.out' });
+            } 
+            // Default Movement
+            else {
+                gsap.to(cursorOutline, { duration: 0.3, x: e.clientX, y: e.clientY, rotation: 0, scaleX: 1, scaleY: 1 });
+            }
 
             // Spotlight Logic
             if (document.body.classList.contains('spotlight-cursor')) {
@@ -508,12 +542,17 @@
                     });
                 }
             }
+
+            lastX = e.clientX;
+            lastY = e.clientY;
         });
 
         document.querySelectorAll('a, .btn, .project-card, .skill-card, .cert-card, .settings-toggle').forEach(el => {
             el.addEventListener('mouseenter', () => {
                 if (!document.body.classList.contains('system-cursor')) {
-                    gsap.to(cursorOutline, { width: 48, height: 48, backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'rgba(255, 255, 255, 0.5)', duration: 0.3 });
+                    if (!document.body.classList.contains('context-cursor')) {
+                        gsap.to(cursorOutline, { width: 48, height: 48, backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'rgba(255, 255, 255, 0.5)', duration: 0.3 });
+                    }
                     
                     // Contextual Text Logic
                     if (document.body.classList.contains('context-cursor')) {
@@ -524,9 +563,12 @@
             });
             el.addEventListener('mouseleave', () => {
                 if (!document.body.classList.contains('system-cursor')) {
-                    gsap.to(cursorOutline, { width: 32, height: 32, backgroundColor: 'transparent', borderColor: 'rgba(255, 255, 255, 0.3)', duration: 0.3 });
+                    if (!document.body.classList.contains('context-cursor')) {
+                        gsap.to(cursorOutline, { width: 32, height: 32, backgroundColor: 'transparent', borderColor: 'rgba(255, 255, 255, 0.3)', duration: 0.3 });
+                    }
                     if (document.body.classList.contains('context-cursor')) {
                         cursorText.innerText = '';
+                        gsap.to(cursorOutline, { width: 32, height: 32, backgroundColor: 'transparent', duration: 0.3 });
                     }
                 }
             });
@@ -547,7 +589,7 @@
                 btn.classList.add('active');
                 
                 // Remove all cursor classes
-                document.body.classList.remove('minimalist-cursor', 'blend-cursor', 'trail-cursor', 'context-cursor', 'crosshair-cursor', 'spotlight-cursor', 'system-cursor');
+                document.body.classList.remove('minimalist-cursor', 'blend-cursor', 'trail-cursor', 'context-cursor', 'crosshair-cursor', 'spotlight-cursor', 'spinning-cursor', 'springy-cursor', 'liquid-cursor', 'system-cursor');
                 
                 // Add selected cursor class
                 const mode = btn.getAttribute('data-cursor');
@@ -559,6 +601,10 @@
                 } else {
                     gsap.to(spotlight, { opacity: 0, duration: 0.3 });
                 }
+
+                // Reset cursor size when switching modes
+                gsap.to(cursorOutline, { clearProps: 'scaleX,scaleY,rotation,width,height,backgroundColor', width: 32, height: 32, backgroundColor: 'transparent', borderColor: 'rgba(255,255,255,0.3)', duration: 0.3 });
+                cursorText.innerText = '';
 
                 // Inject dynamic trail styles if needed
                 if (mode === 'trail' && !document.getElementById('trail-style')) {
