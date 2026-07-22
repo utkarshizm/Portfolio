@@ -163,16 +163,24 @@
         .education-card p { color: var(--text-secondary); margin-bottom: 8px; font-size: 0.95rem; }
 
         /* Skills Grid */
+                /* Skills Grid */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 16px;
         }
         .skill-card {
-            background: var(--card-bg); padding: 32px;
-            border-radius: 8px; border: 1px solid var(--border-color);
+            background: var(--card-bg); 
+            padding: 32px;
+            border-radius: 8px; 
+            border: 1px solid var(--border-color);
             backdrop-filter: blur(10px);
             transition: border-color 0.3s ease, background 0.3s ease;
+            /* New properties to fix the height balancing */
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; /* Centers content vertically */
+            height: 100%;
         }
         .skill-card:hover {
             border-color: rgba(255, 255, 255, 0.2);
