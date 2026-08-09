@@ -11,11 +11,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 :root {
-  --bg: #08080a;        /* Obsidian Black */
+  --bg: #08080a;
   --surface: #111114;
-  --text: #f5f5f7;      /* Pure White */
+  --text: #f5f5f7;
   --muted: #888892;
-  --accent: #ffffff;    /* Pure White Accent */
+  --accent: #ffffff;
   --glass: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.08);
 }
@@ -28,6 +28,7 @@ body {
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  width: 100%;
 }
 
 ::-webkit-scrollbar { width: 0px; }
@@ -61,7 +62,7 @@ body {
   position: fixed; top: 0; left: 0;
   width: 100vw; height: 100vh;
   z-index: 1; pointer-events: none;
-  filter: brightness(0.9); /* Dim background by 10% */
+  filter: brightness(0.9); 
 }
 
 /* Grain & Vignette */
@@ -111,21 +112,24 @@ nav {
   display: flex; flex-direction: column; justify-content: space-between;
   opacity: 0; visibility: hidden;
   transition: opacity 0.4s ease, visibility 0.4s ease;
+  overflow-y: auto; 
+  overflow-x: hidden;
 }
 #menu-overlay.active { opacity: 1; visibility: visible; }
 
-.menu-nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 32px; mix-blend-mode: difference; }
-.menu-links-overlay { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 10vw; gap: 12px; }
+.menu-nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 32px; mix-blend-mode: difference; flex-shrink: 0; }
+.menu-links-overlay { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 8vw; gap: 12px; }
 
-/* Smaller Menu Links with Slide, Fill, and Underline Effect */
+/* Menu Links */
 .menu-link-overlay { 
-  font-family: 'Fraunces', serif; font-size: clamp(24px, 2.5vw, 40px); 
+  font-family: 'Fraunces', serif; font-size: clamp(24px, 3.5vw, 40px); 
   font-style: italic; color: transparent; -webkit-text-stroke: 1px #fff; 
   text-decoration: none; line-height: 1.2; 
   display: flex; align-items: center; gap: 20px; 
   opacity: 0; transform: translateY(20px);
   transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1), -webkit-text-stroke 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, color; position: relative; padding-bottom: 4px;
+  white-space: nowrap;
 }
 #menu-overlay.active .menu-link-overlay { opacity: 1; transform: translateY(0); }
 #menu-overlay.active .menu-link-overlay:nth-child(1) { transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s, color 0.4s ease, -webkit-text-stroke 0.4s ease; }
@@ -134,10 +138,10 @@ nav {
 #menu-overlay.active .menu-link-overlay:nth-child(4) { transition: opacity 0.4s ease 0.25s, transform 0.4s ease 0.25s, color 0.4s ease, -webkit-text-stroke 0.4s ease; }
 #menu-overlay.active .menu-link-overlay:nth-child(5) { transition: opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s, color 0.4s ease, -webkit-text-stroke 0.4s ease; }
 
-.menu-link-overlay span { font-family: 'Inter', sans-serif; font-size: 12px; font-style: normal; color: var(--muted); transition: color 0.4s ease; }
+.menu-link-overlay span { font-family: 'Inter', sans-serif; font-size: 14px; font-style: normal; color: var(--muted); transition: color 0.4s ease; }
 
 .menu-link-overlay::after {
-  content: ''; position: absolute; bottom: 0; left: 40px; width: 0; height: 1px; background: #fff; 
+  content: ''; position: absolute; bottom: 0; left: 60px; width: 0; height: 1px; background: #fff; 
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -145,19 +149,21 @@ nav {
   color: #fff; -webkit-text-stroke: 1px transparent; transform: translateX(15px); 
 }
 .menu-link-overlay:hover span { color: #fff; }
-.menu-link-overlay:hover::after { width: calc(100% - 40px); }
+.menu-link-overlay:hover::after { width: calc(100% - 60px); }
 
-/* MASSIVE Socials at Bottom (Horizontal Straight Line) */
+/* Socials */
 .menu-socials { 
   display: flex; flex-direction: row; justify-content: space-between; align-items: flex-end; 
-  gap: 20px; padding: 40px 10vw; border-top: 1px solid var(--glass-border); 
+  gap: 24px; padding: 32px 8vw; border-top: 1px solid var(--glass-border); 
   opacity: 0; transform: translateY(20px); transition: all 0.4s ease 0.4s; 
+  flex-shrink: 0;
 }
 #menu-overlay.active .menu-socials { opacity: 1; transform: translateY(0); }
 .menu-socials a { 
-  font-family: 'Fraunces', serif; font-size: clamp(48px, 11vw, 180px); 
+  font-family: 'Fraunces', serif; font-size: clamp(24px, 4.5vw, 64px); 
   font-style: italic; color: transparent; -webkit-text-stroke: 1px #fff; 
   text-decoration: none; transition: all 0.3s ease; letter-spacing: -0.04em; line-height: 0.9;
+  white-space: nowrap;
 }
 .menu-socials a:hover { color: #fff; -webkit-text-stroke: 1px transparent; }
 
@@ -187,24 +193,27 @@ section { position: relative; z-index: 10; }
 .section-label { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; gap: 16px; }
 .section-label::before { content: ''; width: 32px; height: 1px; background: var(--muted); }
 
-/* Interactive Name Section */
+/* Interactive Name Section - BIGGER FONT & REDUCED PADDING */
 #name-section {
   min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 80px 24px 60px 24px; perspective: 1000px; position: relative;
+  padding: 80px 5vw 60px 5vw; /* Reduced side padding to allow text to be wider */
+  perspective: 1200px; position: relative;
 }
 .name-wrapper {
   margin-bottom: auto; margin-top: auto; width: 100%;
   display: flex; justify-content: center; align-items: center;
-  padding: 0 16px; /* Ensure no clipping on edges */
+  overflow: visible; 
 }
 .interactive-name {
-  font-family: 'Fraunces', serif; font-size: clamp(40px, 11vw, 160px); /* Adjusted to prevent side clipping */
-  font-weight: 600; font-style: italic; line-height: 0.85; text-align: center;
+  font-family: 'Fraunces', serif; font-size: clamp(48px, 17vw, 220px); /* MASSIVE SIZE */
+  font-weight: 700; font-style: italic; line-height: 0.85; text-align: center;
   display: flex; flex-wrap: nowrap; justify-content: center; white-space: nowrap; 
+  overflow: visible;
+  letter-spacing: -0.04em;
 }
 .letter {
-  display: inline-block; transform-style: preserve-3d; color: transparent; -webkit-text-stroke: 1px #fff;
-  will-change: transform, filter, opacity; padding: 0 2px; /* Slight padding for letters */
+  display: inline-block; transform-style: preserve-3d; color: transparent; -webkit-text-stroke: 1.5px #fff;
+  will-change: transform, filter, opacity; padding: 0 2px;
 }
 .name-sub { 
   font-size: 16px; color: var(--muted); max-width: 600px; text-align: center; 
@@ -299,7 +308,7 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
   nav { padding: 16px 20px; }
   .nav-logo { font-size: 16px; }
   .menu-btn { font-size: 10px; }
-  .interactive-name { font-size: clamp(36px, 14vw, 100px); }
+  .interactive-name { font-size: clamp(40px, 14vw, 100px); } /* Adjusted for mobile */
   .name-sub { font-size: 15px; margin-top: 30px; margin-bottom: 24px; }
   #intersection, #projects, #experience, #leadership, #certificates, #skills, footer { padding-left: 20px; padding-right: 20px; padding-top: 80px; padding-bottom: 80px; }
   .skills-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -314,8 +323,8 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
   .timeline { padding-left: 24px; }
   .tl-item::before { left: -29px; }
   .menu-links-overlay { padding: 0 24px; }
-  .menu-socials { padding: 40px 24px; gap: 10px; flex-wrap: wrap; justify-content: center; }
-  .menu-socials a { font-size: 40px; }
+  .menu-socials { padding: 32px 24px; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .menu-socials a { font-size: 32px; }
   .menu-link-overlay { font-size: 24px; }
   .menu-link-overlay:hover { transform: translateX(8px); }
 }
@@ -627,7 +636,7 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
         <a href="https://www.linkedin.com/in/pandeyutkarrsh/" target="_blank" class="footer-link" data-hover><i class="fab fa-linkedin"></i> LinkedIn</a>
         <a href="https://github.com/utkarshizm" target="_blank" class="footer-link" data-hover><i class="fab fa-github"></i> GitHub</a>
       </div>
-      <div class="footer-bottom">© 2026 Utkarsh Pandey · Designed with intent & Engineered with impact</div>
+      <div class="footer-bottom">© 2026 Utkarsh Pandey · Designed & Engineered with Three.js</div>
     </div>
   </footer>
 
@@ -722,7 +731,7 @@ document.querySelectorAll('.menu-link-overlay, .menu-socials a').forEach(link =>
 });
 
 // ============================================================
-//  INTERACTIVE NAME (Holographic Extrusion & Fluid Ribbon)
+//  INTERACTIVE NAME (Kinetic Wave & Magnetic Tilt 3D Effect)
 // ============================================================
 const nameElement = document.getElementById('interactive-name');
 const nameText = nameElement.innerText;
@@ -734,35 +743,41 @@ nameElement.innerHTML = nameText.split('').map(char => {
 const letters = document.querySelectorAll('.letter');
 const nameSection = document.getElementById('name-section');
 
-function animateNameHologram() {
+function animateNameKinetic() {
   const time = performance.now() * 0.001;
   const heroRect = nameSection.getBoundingClientRect();
   
+  // Calculate scroll progress for the scatter transition
   const scrollP = Math.max(0, Math.min(1, -heroRect.top / heroRect.height));
   const fadeOut = 1 - scrollP;
 
   if (fadeOut <= 0) {
-    requestAnimationFrame(animateNameHologram);
+    requestAnimationFrame(animateNameKinetic);
     return;
   }
 
   letters.forEach((letter, i) => {
-    const waveY = Math.sin(time * 1.5 + i * 0.4) * 12 * fadeOut;
+    // 1. Base Continuous Fluid Wave (Idle motion)
+    const waveY = Math.sin(time * 1.5 + i * 0.4) * 15 * fadeOut;
+    // Subtle Z breathing
+    const baseZ = Math.sin(time * 1.2 + i * 0.3) * 20 * fadeOut;
 
+    // 2. Scroll Scatter Transition (Domino effect)
     const dir = i % 2 === 0 ? 1 : -1;
-    const scrollTx = 80 * scrollP * dir;
-    const scrollTy = -150 * scrollP * dir;
-    const scrollTz = -200 * scrollP;
+    const scrollTx = 60 * scrollP * dir;
+    const scrollTy = -120 * scrollP;
+    const scrollTz = -150 * scrollP;
     const scrollRx = 90 * scrollP;
     const scrollRy = 45 * scrollP * dir;
     const blur = 10 * scrollP;
     const opacity = fadeOut;
 
-    let mouseTx = 0, mouseTy = 0, mouseTz = 0, mouseRx = 0, mouseRy = 0;
+    let mouseTx = 0, mouseTy = 0, mouseTz = 0, mouseRx = 0, mouseRy = 0, scale = 1;
     let color = 'transparent';
-    let stroke = `1px rgba(255, 255, 255, ${opacity})`;
+    let stroke = `1.5px rgba(255, 255, 255, ${opacity})`;
     let shadows = 'none';
     
+    // 3. Mouse Magnetic Tilt & Push
     if (fadeOut > 0.5) {
       const rect = letter.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
@@ -770,39 +785,44 @@ function animateNameHologram() {
       const dx = mouseX - cx;
       const dy = mouseY - cy;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      const maxDist = window.innerWidth * 0.3;
+      const maxDist = 350; // Fixed magnetic radius
 
       if (dist < maxDist) {
         const power = (1 - dist / maxDist) * fadeOut;
         
-        mouseTx = (dx / maxDist) * -100 * power;
-        mouseTz = power * 120;
+        // Push towards viewer
+        mouseTz = power * 60;
+        // Scale up slightly
+        scale = 1 + power * 0.2;
         
-        mouseRy = (dx / maxDist) * 60 * power;
-        mouseRx = -(dy / maxDist) * 40 * power;
+        // 3D Tilt towards cursor
+        mouseRy = (dx / maxDist) * 50 * power;
+        mouseRx = -(dy / maxDist) * 50 * power;
 
+        // Dynamic 3D Shadow for depth
         let shadowArray = [];
-        const layers = Math.min(15, Math.floor(mouseTz / 2));
+        const layers = Math.min(8, Math.floor(mouseTz / 4));
         for (let j = 1; j <= layers; j++) {
-            const alpha = (1 - j / layers) * 0.4 * power;
-            const sx = j * Math.sin(mouseRy * Math.PI / 180) * 1.2;
-            const sy = j * Math.sin(mouseRx * Math.PI / 180) * 1.2;
+            const alpha = (1 - j / layers) * 0.3 * power;
+            const sx = j * Math.sin(mouseRy * Math.PI / 180) * 1.5;
+            const sy = j * Math.sin(mouseRx * Math.PI / 180) * 1.5;
             shadowArray.push(`${sx}px ${sy}px 0 rgba(255,255,255,${alpha})`);
         }
         shadows = shadowArray.join(', ');
         
         color = `rgba(255, 255, 255, ${power})`;
-        stroke = `1px rgba(255, 255, 255, ${1 - power * 0.5})`;
+        stroke = `1.5px rgba(255, 255, 255, ${1 - power * 0.5})`;
       }
     }
 
+    // Combine transforms
     const finalTx = mouseTx + scrollTx;
     const finalTy = waveY + mouseTy + scrollTy;
-    const finalTz = mouseTz + scrollTz;
+    const finalTz = baseZ + mouseTz + scrollTz;
     const finalRx = mouseRx + scrollRx;
     const finalRy = mouseRy + scrollRy;
 
-    letter.style.transform = `perspective(1000px) translate3d(${finalTx}px, ${finalTy}px, ${finalTz}px) rotateX(${finalRx}deg) rotateY(${finalRy}deg)`;
+    letter.style.transform = `perspective(1000px) translate3d(${finalTx}px, ${finalTy}px, ${finalTz}px) rotateX(${finalRx}deg) rotateY(${finalRy}deg) scale(${scale})`;
     letter.style.color = color;
     letter.style.webkitTextStroke = stroke;
     letter.style.textShadow = shadows;
@@ -810,9 +830,9 @@ function animateNameHologram() {
     letter.style.opacity = opacity;
   });
 
-  requestAnimationFrame(animateNameHologram);
+  requestAnimationFrame(animateNameKinetic);
 }
-animateNameHologram();
+animateNameKinetic();
 
 // ============================================================
 //  THREE.JS SCENE: MINIMALIST AETHERIAL TERRAIN
