@@ -26,7 +26,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: 'Inter', sans-serif;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden; /* Stops horizontal scroll globally */
   -webkit-font-smoothing: antialiased;
   width: 100%;
 }
@@ -62,7 +62,7 @@ body {
   position: fixed; top: 0; left: 0;
   width: 100vw; height: 100vh;
   z-index: 1; pointer-events: none;
-  filter: brightness(0.9); /* Dim background by 10% */
+  filter: brightness(0.9); 
 }
 
 /* Grain & Vignette */
@@ -112,16 +112,17 @@ nav {
   display: flex; flex-direction: column; justify-content: space-between;
   opacity: 0; visibility: hidden;
   transition: opacity 0.4s ease, visibility 0.4s ease;
-  overflow: hidden; /* Prevent any scroll/clipping issues */
+  overflow-y: auto; /* Allow vertical scroll if needed on small screens, but no horizontal clipping */
+  overflow-x: hidden;
 }
 #menu-overlay.active { opacity: 1; visibility: visible; }
 
 .menu-nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 32px; mix-blend-mode: difference; flex-shrink: 0; }
-.menu-links-overlay { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 6vw; gap: 12px; overflow: hidden; }
+.menu-links-overlay { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 6vw; gap: 12px; }
 
-/* Menu Links - Adjusted size to prevent clipping */
+/* Menu Links */
 .menu-link-overlay { 
-  font-family: 'Fraunces', serif; font-size: clamp(24px, 3vw, 48px); 
+  font-family: 'Fraunces', serif; font-size: clamp(28px, 4vw, 56px); 
   font-style: italic; color: transparent; -webkit-text-stroke: 1px #fff; 
   text-decoration: none; line-height: 1.2; 
   display: flex; align-items: center; gap: 20px; 
@@ -136,10 +137,10 @@ nav {
 #menu-overlay.active .menu-link-overlay:nth-child(4) { transition: opacity 0.4s ease 0.25s, transform 0.4s ease 0.25s, color 0.4s ease, -webkit-text-stroke 0.4s ease; }
 #menu-overlay.active .menu-link-overlay:nth-child(5) { transition: opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s, color 0.4s ease, -webkit-text-stroke 0.4s ease; }
 
-.menu-link-overlay span { font-family: 'Inter', sans-serif; font-size: 12px; font-style: normal; color: var(--muted); transition: color 0.4s ease; }
+.menu-link-overlay span { font-family: 'Inter', sans-serif; font-size: 14px; font-style: normal; color: var(--muted); transition: color 0.4s ease; }
 
 .menu-link-overlay::after {
-  content: ''; position: absolute; bottom: 0; left: 40px; width: 0; height: 1px; background: #fff; 
+  content: ''; position: absolute; bottom: 0; left: 60px; width: 0; height: 1px; background: #fff; 
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -147,18 +148,18 @@ nav {
   color: #fff; -webkit-text-stroke: 1px transparent; transform: translateX(15px); 
 }
 .menu-link-overlay:hover span { color: #fff; }
-.menu-link-overlay:hover::after { width: calc(100% - 40px); }
+.menu-link-overlay:hover::after { width: calc(100% - 60px); }
 
-/* Socials - Reduced size to fit horizontally without clipping */
+/* Socials - Safe sizing to prevent horizontal clipping */
 .menu-socials { 
   display: flex; flex-direction: row; justify-content: space-between; align-items: flex-end; 
-  gap: 20px; padding: 32px 6vw; border-top: 1px solid var(--glass-border); 
+  gap: 24px; padding: 32px 6vw; border-top: 1px solid var(--glass-border); 
   opacity: 0; transform: translateY(20px); transition: all 0.4s ease 0.4s; 
   flex-shrink: 0;
 }
 #menu-overlay.active .menu-socials { opacity: 1; transform: translateY(0); }
 .menu-socials a { 
-  font-family: 'Fraunces', serif; font-size: clamp(32px, 6vw, 90px); /* Reduced from 180px to 90px max */
+  font-family: 'Fraunces', serif; font-size: clamp(32px, 5.5vw, 80px); 
   font-style: italic; color: transparent; -webkit-text-stroke: 1px #fff; 
   text-decoration: none; transition: all 0.3s ease; letter-spacing: -0.04em; line-height: 0.9;
   white-space: nowrap;
@@ -195,15 +196,14 @@ section { position: relative; z-index: 10; }
 #name-section {
   min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
   padding: 80px 16px 60px 16px; perspective: 1000px; position: relative;
-  overflow: hidden;
 }
 .name-wrapper {
   margin-bottom: auto; margin-top: auto; width: 100%;
   display: flex; justify-content: center; align-items: center;
-  overflow: hidden; /* Prevent any horizontal spill */
+  overflow: visible; /* ALLOW 3D LETTERS TO OVERFLOW WITHOUT CLIPPING */
 }
 .interactive-name {
-  font-family: 'Fraunces', serif; font-size: clamp(36px, 9vw, 130px); /* Adjusted to guarantee no clipping */
+  font-family: 'Fraunces', serif; font-size: clamp(36px, 8.5vw, 130px); /* Safe sizing */
   font-weight: 600; font-style: italic; line-height: 0.85; text-align: center;
   display: flex; flex-wrap: nowrap; justify-content: center; white-space: nowrap; 
   max-width: 100%;
@@ -322,7 +322,7 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
   .menu-links-overlay { padding: 0 24px; }
   .menu-socials { padding: 32px 24px; gap: 10px; flex-wrap: wrap; justify-content: center; }
   .menu-socials a { font-size: 32px; }
-  .menu-link-overlay { font-size: 24px; }
+  .menu-link-overlay { font-size: 28px; }
   .menu-link-overlay:hover { transform: translateX(8px); }
 }
 </style>
