@@ -112,23 +112,24 @@ nav {
   display: flex; flex-direction: column; justify-content: space-between;
   opacity: 0; visibility: hidden;
   transition: opacity 0.4s ease, visibility 0.4s ease;
-  overflow-y: auto; /* Allow vertical scroll if needed on small screens, but no horizontal clipping */
+  overflow-y: auto; /* Allow vertical scroll if needed on small screens */
   overflow-x: hidden;
 }
 #menu-overlay.active { opacity: 1; visibility: visible; }
 
 .menu-nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 32px; mix-blend-mode: difference; flex-shrink: 0; }
-.menu-links-overlay { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 6vw; gap: 12px; }
+.menu-links-overlay { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 8vw; gap: 12px; }
 
 /* Menu Links */
 .menu-link-overlay { 
-  font-family: 'Fraunces', serif; font-size: clamp(28px, 4vw, 56px); 
+  font-family: 'Fraunces', serif; font-size: clamp(28px, 4.5vw, 56px); 
   font-style: italic; color: transparent; -webkit-text-stroke: 1px #fff; 
   text-decoration: none; line-height: 1.2; 
   display: flex; align-items: center; gap: 20px; 
   opacity: 0; transform: translateY(20px);
   transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1), -webkit-text-stroke 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, color; position: relative; padding-bottom: 4px;
+  white-space: nowrap;
 }
 #menu-overlay.active .menu-link-overlay { opacity: 1; transform: translateY(0); }
 #menu-overlay.active .menu-link-overlay:nth-child(1) { transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s, color 0.4s ease, -webkit-text-stroke 0.4s ease; }
@@ -153,13 +154,13 @@ nav {
 /* Socials - Safe sizing to prevent horizontal clipping */
 .menu-socials { 
   display: flex; flex-direction: row; justify-content: space-between; align-items: flex-end; 
-  gap: 24px; padding: 32px 6vw; border-top: 1px solid var(--glass-border); 
+  gap: 24px; padding: 32px 8vw; border-top: 1px solid var(--glass-border); 
   opacity: 0; transform: translateY(20px); transition: all 0.4s ease 0.4s; 
   flex-shrink: 0;
 }
 #menu-overlay.active .menu-socials { opacity: 1; transform: translateY(0); }
 .menu-socials a { 
-  font-family: 'Fraunces', serif; font-size: clamp(32px, 5.5vw, 80px); 
+  font-family: 'Fraunces', serif; font-size: clamp(28px, 4.5vw, 64px); /* Reduced to guarantee no clipping */
   font-style: italic; color: transparent; -webkit-text-stroke: 1px #fff; 
   text-decoration: none; transition: all 0.3s ease; letter-spacing: -0.04em; line-height: 0.9;
   white-space: nowrap;
@@ -195,15 +196,16 @@ section { position: relative; z-index: 10; }
 /* Interactive Name Section */
 #name-section {
   min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 80px 16px 60px 16px; perspective: 1000px; position: relative;
+  /* Added massive side padding to guarantee letters never hit the edge */
+  padding: 80px 10vw 60px 10vw; 
+  perspective: 1000px; position: relative;
 }
 .name-wrapper {
   margin-bottom: auto; margin-top: auto; width: 100%;
   display: flex; justify-content: center; align-items: center;
-  overflow: visible; /* ALLOW 3D LETTERS TO OVERFLOW WITHOUT CLIPPING */
 }
 .interactive-name {
-  font-family: 'Fraunces', serif; font-size: clamp(36px, 8.5vw, 130px); /* Safe sizing */
+  font-family: 'Fraunces', serif; font-size: clamp(36px, 9vw, 130px); /* Safe sizing */
   font-weight: 600; font-style: italic; line-height: 0.85; text-align: center;
   display: flex; flex-wrap: nowrap; justify-content: center; white-space: nowrap; 
   max-width: 100%;
@@ -781,14 +783,16 @@ function animateNameHologram() {
       if (dist < maxDist) {
         const power = (1 - dist / maxDist) * fadeOut;
         
-        mouseTx = (dx / maxDist) * -100 * power;
-        mouseTz = power * 120;
+        // Reduced horizontal push to guarantee no side clipping
+        mouseTx = (dx / maxDist) * -60 * power; 
+        // Reduced Z depth slightly to keep it safe in viewport
+        mouseTz = power * 70; 
         
         mouseRy = (dx / maxDist) * 60 * power;
         mouseRx = -(dy / maxDist) * 40 * power;
 
         let shadowArray = [];
-        const layers = Math.min(15, Math.floor(mouseTz / 2));
+        const layers = Math.min(10, Math.floor(mouseTz / 2));
         for (let j = 1; j <= layers; j++) {
             const alpha = (1 - j / layers) * 0.4 * power;
             const sx = j * Math.sin(mouseRy * Math.PI / 180) * 1.2;
