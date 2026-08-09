@@ -56,11 +56,12 @@ body {
   background: rgba(255, 255, 255, 0.15);
 }
 
-/* 3D Canvas */
+/* 3D Canvas - Dimmed by 10% */
 #canvas-container {
   position: fixed; top: 0; left: 0;
   width: 100vw; height: 100vh;
   z-index: 1; pointer-events: none;
+  filter: brightness(0.9); /* Dim background by 10% */
 }
 
 /* Grain & Vignette */
@@ -194,15 +195,16 @@ section { position: relative; z-index: 10; }
 .name-wrapper {
   margin-bottom: auto; margin-top: auto; width: 100%;
   display: flex; justify-content: center; align-items: center;
+  padding: 0 16px; /* Ensure no clipping on edges */
 }
 .interactive-name {
-  font-family: 'Fraunces', serif; font-size: clamp(56px, 15vw, 240px); 
+  font-family: 'Fraunces', serif; font-size: clamp(40px, 11vw, 160px); /* Adjusted to prevent side clipping */
   font-weight: 600; font-style: italic; line-height: 0.85; text-align: center;
   display: flex; flex-wrap: nowrap; justify-content: center; white-space: nowrap; 
 }
 .letter {
   display: inline-block; transform-style: preserve-3d; color: transparent; -webkit-text-stroke: 1px #fff;
-  will-change: transform, filter, opacity;
+  will-change: transform, filter, opacity; padding: 0 2px; /* Slight padding for letters */
 }
 .name-sub { 
   font-size: 16px; color: var(--muted); max-width: 600px; text-align: center; 
@@ -297,7 +299,7 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
   nav { padding: 16px 20px; }
   .nav-logo { font-size: 16px; }
   .menu-btn { font-size: 10px; }
-  .interactive-name { font-size: clamp(48px, 18vw, 120px); }
+  .interactive-name { font-size: clamp(36px, 14vw, 100px); }
   .name-sub { font-size: 15px; margin-top: 30px; margin-bottom: 24px; }
   #intersection, #projects, #experience, #leadership, #certificates, #skills, footer { padding-left: 20px; padding-right: 20px; padding-top: 80px; padding-bottom: 80px; }
   .skills-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -625,7 +627,7 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
         <a href="https://www.linkedin.com/in/pandeyutkarrsh/" target="_blank" class="footer-link" data-hover><i class="fab fa-linkedin"></i> LinkedIn</a>
         <a href="https://github.com/utkarshizm" target="_blank" class="footer-link" data-hover><i class="fab fa-github"></i> GitHub</a>
       </div>
-      <div class="footer-bottom">© 2026 Utkarsh Pandey · Designed with intent & Engineered for impact </div>
+      <div class="footer-bottom">© 2026 Utkarsh Pandey · Designed & Engineered with Three.js</div>
     </div>
   </footer>
 
