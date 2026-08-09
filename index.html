@@ -26,9 +26,8 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: 'Inter', sans-serif;
-  overflow-x: hidden; /* Stops horizontal scroll globally */
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  width: 100%;
 }
 
 ::-webkit-scrollbar { width: 0px; }
@@ -62,7 +61,7 @@ body {
   position: fixed; top: 0; left: 0;
   width: 100vw; height: 100vh;
   z-index: 1; pointer-events: none;
-  filter: brightness(0.9); 
+  filter: brightness(0.9); /* Dim background by 10% */
 }
 
 /* Grain & Vignette */
@@ -112,24 +111,21 @@ nav {
   display: flex; flex-direction: column; justify-content: space-between;
   opacity: 0; visibility: hidden;
   transition: opacity 0.4s ease, visibility 0.4s ease;
-  overflow-y: auto; /* Allow vertical scroll if needed on small screens */
-  overflow-x: hidden;
 }
 #menu-overlay.active { opacity: 1; visibility: visible; }
 
-.menu-nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 32px; mix-blend-mode: difference; flex-shrink: 0; }
-.menu-links-overlay { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 8vw; gap: 12px; }
+.menu-nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 32px; mix-blend-mode: difference; }
+.menu-links-overlay { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 10vw; gap: 12px; }
 
-/* Menu Links */
+/* Smaller Menu Links with Slide, Fill, and Underline Effect */
 .menu-link-overlay { 
-  font-family: 'Fraunces', serif; font-size: clamp(28px, 4.5vw, 56px); 
+  font-family: 'Fraunces', serif; font-size: clamp(24px, 2.5vw, 40px); 
   font-style: italic; color: transparent; -webkit-text-stroke: 1px #fff; 
   text-decoration: none; line-height: 1.2; 
   display: flex; align-items: center; gap: 20px; 
   opacity: 0; transform: translateY(20px);
   transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1), -webkit-text-stroke 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, color; position: relative; padding-bottom: 4px;
-  white-space: nowrap;
 }
 #menu-overlay.active .menu-link-overlay { opacity: 1; transform: translateY(0); }
 #menu-overlay.active .menu-link-overlay:nth-child(1) { transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s, color 0.4s ease, -webkit-text-stroke 0.4s ease; }
@@ -138,10 +134,10 @@ nav {
 #menu-overlay.active .menu-link-overlay:nth-child(4) { transition: opacity 0.4s ease 0.25s, transform 0.4s ease 0.25s, color 0.4s ease, -webkit-text-stroke 0.4s ease; }
 #menu-overlay.active .menu-link-overlay:nth-child(5) { transition: opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s, color 0.4s ease, -webkit-text-stroke 0.4s ease; }
 
-.menu-link-overlay span { font-family: 'Inter', sans-serif; font-size: 14px; font-style: normal; color: var(--muted); transition: color 0.4s ease; }
+.menu-link-overlay span { font-family: 'Inter', sans-serif; font-size: 12px; font-style: normal; color: var(--muted); transition: color 0.4s ease; }
 
 .menu-link-overlay::after {
-  content: ''; position: absolute; bottom: 0; left: 60px; width: 0; height: 1px; background: #fff; 
+  content: ''; position: absolute; bottom: 0; left: 40px; width: 0; height: 1px; background: #fff; 
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -149,21 +145,19 @@ nav {
   color: #fff; -webkit-text-stroke: 1px transparent; transform: translateX(15px); 
 }
 .menu-link-overlay:hover span { color: #fff; }
-.menu-link-overlay:hover::after { width: calc(100% - 60px); }
+.menu-link-overlay:hover::after { width: calc(100% - 40px); }
 
-/* Socials - Safe sizing to prevent horizontal clipping */
+/* MASSIVE Socials at Bottom (Horizontal Straight Line) */
 .menu-socials { 
   display: flex; flex-direction: row; justify-content: space-between; align-items: flex-end; 
-  gap: 24px; padding: 32px 8vw; border-top: 1px solid var(--glass-border); 
+  gap: 20px; padding: 40px 10vw; border-top: 1px solid var(--glass-border); 
   opacity: 0; transform: translateY(20px); transition: all 0.4s ease 0.4s; 
-  flex-shrink: 0;
 }
 #menu-overlay.active .menu-socials { opacity: 1; transform: translateY(0); }
 .menu-socials a { 
-  font-family: 'Fraunces', serif; font-size: clamp(28px, 4.5vw, 64px); /* Reduced to guarantee no clipping */
+  font-family: 'Fraunces', serif; font-size: clamp(48px, 11vw, 180px); 
   font-style: italic; color: transparent; -webkit-text-stroke: 1px #fff; 
   text-decoration: none; transition: all 0.3s ease; letter-spacing: -0.04em; line-height: 0.9;
-  white-space: nowrap;
 }
 .menu-socials a:hover { color: #fff; -webkit-text-stroke: 1px transparent; }
 
@@ -196,23 +190,21 @@ section { position: relative; z-index: 10; }
 /* Interactive Name Section */
 #name-section {
   min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  /* Added massive side padding to guarantee letters never hit the edge */
-  padding: 80px 10vw 60px 10vw; 
-  perspective: 1000px; position: relative;
+  padding: 80px 24px 60px 24px; perspective: 1000px; position: relative;
 }
 .name-wrapper {
   margin-bottom: auto; margin-top: auto; width: 100%;
   display: flex; justify-content: center; align-items: center;
+  padding: 0 16px; /* Ensure no clipping on edges */
 }
 .interactive-name {
-  font-family: 'Fraunces', serif; font-size: clamp(36px, 9vw, 130px); /* Safe sizing */
+  font-family: 'Fraunces', serif; font-size: clamp(40px, 11vw, 160px); /* Adjusted to prevent side clipping */
   font-weight: 600; font-style: italic; line-height: 0.85; text-align: center;
   display: flex; flex-wrap: nowrap; justify-content: center; white-space: nowrap; 
-  max-width: 100%;
 }
 .letter {
   display: inline-block; transform-style: preserve-3d; color: transparent; -webkit-text-stroke: 1px #fff;
-  will-change: transform, filter, opacity; padding: 0 1px;
+  will-change: transform, filter, opacity; padding: 0 2px; /* Slight padding for letters */
 }
 .name-sub { 
   font-size: 16px; color: var(--muted); max-width: 600px; text-align: center; 
@@ -307,7 +299,7 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
   nav { padding: 16px 20px; }
   .nav-logo { font-size: 16px; }
   .menu-btn { font-size: 10px; }
-  .interactive-name { font-size: clamp(32px, 12vw, 90px); }
+  .interactive-name { font-size: clamp(36px, 14vw, 100px); }
   .name-sub { font-size: 15px; margin-top: 30px; margin-bottom: 24px; }
   #intersection, #projects, #experience, #leadership, #certificates, #skills, footer { padding-left: 20px; padding-right: 20px; padding-top: 80px; padding-bottom: 80px; }
   .skills-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -322,9 +314,9 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
   .timeline { padding-left: 24px; }
   .tl-item::before { left: -29px; }
   .menu-links-overlay { padding: 0 24px; }
-  .menu-socials { padding: 32px 24px; gap: 10px; flex-wrap: wrap; justify-content: center; }
-  .menu-socials a { font-size: 32px; }
-  .menu-link-overlay { font-size: 28px; }
+  .menu-socials { padding: 40px 24px; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .menu-socials a { font-size: 40px; }
+  .menu-link-overlay { font-size: 24px; }
   .menu-link-overlay:hover { transform: translateX(8px); }
 }
 </style>
@@ -635,7 +627,7 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
         <a href="https://www.linkedin.com/in/pandeyutkarrsh/" target="_blank" class="footer-link" data-hover><i class="fab fa-linkedin"></i> LinkedIn</a>
         <a href="https://github.com/utkarshizm" target="_blank" class="footer-link" data-hover><i class="fab fa-github"></i> GitHub</a>
       </div>
-      <div class="footer-bottom">© 2026 Utkarsh Pandey · Designed & Engineered with Three.js</div>
+      <div class="footer-bottom">© 2026 Utkarsh Pandey · Designed with intent & Engineered for impact</div>
     </div>
   </footer>
 
@@ -783,16 +775,14 @@ function animateNameHologram() {
       if (dist < maxDist) {
         const power = (1 - dist / maxDist) * fadeOut;
         
-        // Reduced horizontal push to guarantee no side clipping
-        mouseTx = (dx / maxDist) * -60 * power; 
-        // Reduced Z depth slightly to keep it safe in viewport
-        mouseTz = power * 70; 
+        mouseTx = (dx / maxDist) * -100 * power;
+        mouseTz = power * 120;
         
         mouseRy = (dx / maxDist) * 60 * power;
         mouseRx = -(dy / maxDist) * 40 * power;
 
         let shadowArray = [];
-        const layers = Math.min(10, Math.floor(mouseTz / 2));
+        const layers = Math.min(15, Math.floor(mouseTz / 2));
         for (let j = 1; j <= layers; j++) {
             const alpha = (1 - j / layers) * 0.4 * power;
             const sx = j * Math.sin(mouseRy * Math.PI / 180) * 1.2;
