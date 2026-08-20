@@ -8,12 +8,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Utkarsh Pandey — AI Engineer & Creative Developer</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Preload main font for LCP improvement -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,800&family=Inter:wght@300;400;500;600&display=swap" as="style">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <style>
+<style>
 :root {
   --bg: #08080a;
   --surface: #111114;
@@ -200,7 +202,7 @@ section { position: relative; z-index: 10; }
 /* Interactive Name Section - BIGGER FONT & REDUCED PADDING */
 #name-section {
   min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 80px 5vw 60px 5vw; /* Reduced side padding to allow text to be wider */
+  padding: 80px 5vw 60px 5vw; 
   perspective: 1200px; position: relative;
 }
 .name-wrapper {
@@ -209,7 +211,7 @@ section { position: relative; z-index: 10; }
   overflow: visible; 
 }
 .interactive-name {
-  font-family: 'Fraunces', serif; font-size: clamp(48px, 17vw, 220px); /* MASSIVE SIZE */
+  font-family: 'Fraunces', serif; font-size: clamp(48px, 17vw, 220px); 
   font-weight: 700; font-style: italic; line-height: 0.85; text-align: center;
   display: flex; flex-wrap: nowrap; justify-content: center; white-space: nowrap; 
   overflow: visible;
@@ -312,7 +314,7 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
   nav { padding: 16px 20px; }
   .nav-logo { font-size: 16px; }
   .menu-btn { font-size: 10px; }
-  .interactive-name { font-size: clamp(40px, 14vw, 100px); } /* Adjusted for mobile */
+  .interactive-name { font-size: clamp(40px, 14vw, 100px); } 
   .name-sub { font-size: 15px; margin-top: 30px; margin-bottom: 24px; }
   #intersection, #projects, #experience, #leadership, #certificates, #skills, footer { padding-left: 20px; padding-right: 20px; padding-top: 80px; padding-bottom: 80px; }
   .skills-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -411,10 +413,10 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
     <h2 class="font-display text-5xl md:text-7xl mb-24 leading-tight text-white">Things I've <br><span style="color: var(--muted); font-style: italic;">shipped.</span></h2>
 
     <div class="projects-container">
-      <!-- Project 1 -->
+      <!-- Project 1: DocSoft -->
       <div class="project-item">
         <div class="project-img-wrap">
-          <img src="https://z-cdn-media.chatglm.cn/files/3bd9488e-1278-49ec-875f-168afec3d3e3.png?auth_key=1886128171-f3bf4bdc49734aa083c7b79a62b31b86-0-46793a9c5f6376637859ead6241d5590" alt="DocSoft" class="project-img">
+          <img src="https://z-cdn-media.chatglm.cn/files/3bd9488e-1278-49ec-875f-168afec3d3e3.png?auth_key=1886128171-f3bf4bdc49734aa083c7b79a62b31b86-0-46793a9c5f6376637859ead6241d5590" alt="DocSoft" class="project-img" loading="lazy">
         </div>
         <div class="project-info">
           <div class="project-meta">FastAPI · Docker · Pinecone</div>
@@ -424,10 +426,23 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
         </div>
       </div>
 
-      <!-- Project 2 -->
+      <!-- Project 2: PySpark ETL Pipeline (Moved & Image Updated) -->
       <div class="project-item">
         <div class="project-img-wrap">
-          <img src="https://z-cdn-media.chatglm.cn/files/2b7ea2c5-efa5-484e-a720-3cd9d206c0a6.png?auth_key=1884733426-f504646ab9c541d28fe8eae1e97e7774-0-723fc897bae06ad9dc4eb1b23e93f062" alt="Olist" class="project-img">
+          <img src="https://z-cdn-media.chatglm.cn/files/67392bed-ae69-4b60-8e51-6832baffee7f.png?auth_key=1887209865-38bbbfeee0d443bcb07ea8e417eef195-0-4f57c085608f2de63da797abe6cfcf32" alt="PySpark ETL Pipeline Architecture" class="project-img" loading="lazy">
+        </div>
+        <div class="project-info">
+          <div class="project-meta">PySpark · Databricks · Delta Lake</div>
+          <h3 class="project-title">PySpark ETL Pipeline: NYC Taxi Analysis</h3>
+          <p class="project-desc">Scaled a Bronze→Silver→Gold pipeline to 3.5M+ real-world NYC TLC trip records/month on Azure Databricks with Delta Lake. Orchestrated via a scheduled, dependency-linked Databricks Workflow (ETL → validation → failure alert). Found and fixed a live data-quality bug (an erroneous $863K fare on a 1.6-mile trip skewing revenue 5x) and optimized duration metrics using percentile_approx for sub-linear cost at scale. Verified determinism across 3 runs on 2.8M+ rows and built zero-maintenance self-updating date logic.</p>
+          <a href="https://github.com/utkarshizm" target="_blank" class="project-link" data-hover>View Code <i class="fas fa-arrow-up-right-from-square" style="font-size:10px;"></i></a>
+        </div>
+      </div>
+
+      <!-- Project 3: Olist Revenue & Retention -->
+      <div class="project-item">
+        <div class="project-img-wrap">
+          <img src="https://z-cdn-media.chatglm.cn/files/2b7ea2c5-efa5-484e-a720-3cd9d206c0a6.png?auth_key=1884733426-f504646ab9c541d28fe8eae1e97e7774-0-723fc897bae06ad9dc4eb1b23e93f062" alt="Olist" class="project-img" loading="lazy">
         </div>
         <div class="project-info">
           <div class="project-meta">SQL · Streamlit</div>
@@ -437,10 +452,10 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
         </div>
       </div>
 
-      <!-- Project 3 -->
+      <!-- Project 4: Zomato Restaurant Analysis -->
       <div class="project-item">
         <div class="project-img-wrap">
-          <img src="https://z-cdn-media.chatglm.cn/files/5fe17f5f-46c1-4c83-85c5-a02057d212b2.png?auth_key=1884726553-f6619303565447bd95b8d114b561ccc6-0-1564fe932e09710f12c01518635795cb" alt="Zomato" class="project-img">
+          <img src="https://z-cdn-media.chatglm.cn/files/5fe17f5f-46c1-4c83-85c5-a02057d212b2.png?auth_key=1884726553-f6619303565447bd95b8d114b561ccc6-0-1564fe932e09710f12c01518635795cb" alt="Zomato" class="project-img" loading="lazy">
         </div>
         <div class="project-info">
           <div class="project-meta">Power BI · Python</div>
@@ -450,10 +465,10 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
         </div>
       </div>
 
-      <!-- Project 4 -->
+      <!-- Project 5: IPL Cricket Analytics -->
       <div class="project-item">
         <div class="project-img-wrap">
-          <img src="https://z-cdn-media.chatglm.cn/files/da0c9050-97e0-42c4-9d70-594942567151.png?auth_key=1884726553-0a4a7d88231345faaded18a734777750-0-3e9bc90f741487fdf602d1da6a9fec42" alt="IPL" class="project-img">
+          <img src="https://z-cdn-media.chatglm.cn/files/da0c9050-97e0-42c4-9d70-594942567151.png?auth_key=1884726553-0a4a7d88231345faaded18a734777750-0-3e9bc90f741487fdf602d1da6a9fec42" alt="IPL" class="project-img" loading="lazy">
         </div>
         <div class="project-info">
           <div class="project-meta">Python · Streamlit · Plotly</div>
@@ -463,10 +478,10 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
         </div>
       </div>
 
-      <!-- Project 5 -->
+      <!-- Project 6: Superstore Sales Dashboard -->
       <div class="project-item">
         <div class="project-img-wrap">
-          <img src="https://z-cdn-media.chatglm.cn/files/f87005c9-6079-4928-95b9-7276a497ed85.png?auth_key=1884726553-e67a9ce9afaf485293e15b44584dc0ad-0-2f2e711b4736f0714bcf67d8e29bb200" alt="Superstore" class="project-img">
+          <img src="https://z-cdn-media.chatglm.cn/files/f87005c9-6079-4928-95b9-7276a497ed85.png?auth_key=1884726553-e67a9ce9afaf485293e15b44584dc0ad-0-2f2e711b4736f0714bcf67d8e29bb200" alt="Superstore" class="project-img" loading="lazy">
         </div>
         <div class="project-info">
           <div class="project-meta">Tableau Public</div>
@@ -476,10 +491,10 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
         </div>
       </div>
 
-      <!-- Project 6 -->
+      <!-- Project 7: Anti-Crash & Object Detection -->
       <div class="project-item">
         <div class="project-img-wrap">
-          <img src="https://z-cdn-media.chatglm.cn/files/248d4502-ca78-4621-96e8-f5deb1db5b95.png?auth_key=1884880555-8db4c3fd3fb44c04ace633084f393d50-0-2dda41ea681615a0762b3602e9be824d" alt="Anti-Crash" class="project-img">
+          <img src="https://z-cdn-media.chatglm.cn/files/248d4502-ca78-4621-96e8-f5deb1db5b95.png?auth_key=1884880555-8db4c3fd3fb44c04ace633084f393d50-0-2dda41ea681615a0762b3602e9be824d" alt="Anti-Crash" class="project-img" loading="lazy">
         </div>
         <div class="project-info">
           <div class="project-meta">Hardware · IoT</div>
@@ -640,7 +655,7 @@ footer { padding: 100px 32px 56px; position: relative; z-index: 10; border-top: 
         <a href="https://www.linkedin.com/in/pandeyutkarrsh/" target="_blank" class="footer-link" data-hover><i class="fab fa-linkedin"></i> LinkedIn</a>
         <a href="https://github.com/utkarshizm" target="_blank" class="footer-link" data-hover><i class="fab fa-github"></i> GitHub</a>
       </div>
-      <div class="footer-bottom">© 2026 Utkarsh Pandey · Designed with intent & Engineered for impact</div>
+      <div class="footer-bottom">© 2026 Utkarsh Pandey · Designed with intent & Engineered for impact </div>
     </div>
   </footer>
 
